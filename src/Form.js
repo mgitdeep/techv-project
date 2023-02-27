@@ -40,7 +40,7 @@ const Form = () => {
             <input type="text" placeholder='Enter your password...' name='password' value={inputData.password} onChange = {handleData}/>
         </div>
         <div>
-            <button type='submit'>Submit</button>
+            <button type='submit'>Sign up</button>
         </div>
     </form>
     </>
