@@ -33,7 +33,7 @@ input[type-password], select {
 
 button {
   width: 30%;
-  background-color: aqua;
+  background-color: rgb(6, 192, 12);
   color: white;
   padding: 15px 21px;
   margin: 8px 0;
@@ -46,7 +46,7 @@ button:hover {
   background-color: aquamarine;
 }
 
-header {
+.header {
   width: 96%;
   background-color: #451aee;
   padding: 1px 20px;
