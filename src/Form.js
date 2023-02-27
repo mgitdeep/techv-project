@@ -24,6 +24,8 @@ const Form = () => {
         }
     }
   return (
+    <>
+    <pre>{(flag) ? <h2 className='ui-defne'>Hello {inputData.name}, You've Registered Successfully!</h2> : ""}</pre>
     <form className='container' onSubmit={handleSubmit}>
         <div className='header'>
             <h1>Registration Form</h1>
@@ -41,6 +43,7 @@ const Form = () => {
             <button type='submit'>Submit</button>
         </div>
     </form>
+    </>
   )
 }
 
