@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 const Form = () => {
+
     const data = {name: "", email: "", password: ""};
     const [inputData, setInputData] = useState(data);
     const [flag, setFlag] = useState(false);
@@ -46,5 +47,7 @@ const Form = () => {
     </>
   )
 }
+
+
 
 export default Form
