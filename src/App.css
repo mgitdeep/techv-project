@@ -124,7 +124,7 @@ html {
     color: aliceblue;
   }
   
-  /* .showDataStyle {
+  .showDataStyle {
     min-width: 20rem;
     width: 60rem;
     min-height: 2rem;
@@ -146,7 +146,7 @@ html {
   
   .showDataStyle p:first-child {
     font-weight: bold;
-  } */
+  }
   
   /* body {
     background-color: #b3e5fc;

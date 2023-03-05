@@ -1,11 +1,22 @@
 import React, { useState } from 'react'
 
 const MultipleInputs = () => {
-    const [name, setName] = useState("")
-    const [pswd, setPswd] = useState("")
+    const [name, setName] = useState("");    // Here "name" and "pswd" are holding the User input values
+    const [pswd, setPswd] = useState("");
+
+    const [allEntry, setAllEntry] = useState([]);
+
+    const submitForm = (e) => {
+        e.preventDefault();
+
+        const newEntry = { email: name, password: pswd}
+
+        setAllEntry([ ...allEntry, newEntry]);
+        console.log();
+    }
   return (
     <>
-        <form action="">
+        <form action="" onSubmit={submitForm}>
             <div>
                 <label htmlFor="Firstname">First Name</label>
                 <input type="text" autoComplete='off' name='Firstname' id='Firstname' required
@@ -28,6 +39,19 @@ const MultipleInputs = () => {
             </div>
             <button type='submit'>Sign up</button>
         </form>
+
+        <div>
+            {
+                allEntry.map((curElm) => {
+                    return (
+                        <div className='showDataStyle' key={""}>
+                            <p>{curElm.name}</p>
+                            <p>{curElm.pswd}</p>
+                        </div>
+                    )
+                })
+            }
+        </div>
     </>
   )
 }
