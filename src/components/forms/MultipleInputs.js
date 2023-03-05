@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
 const MultipleInputs = () => {
-    const [name, setName] = useState("");    // Here "name" and "pswd" are holding the User input values
+    const [fname, setFname] = useState("");    // Here "name" and "pswd" are holding the User input values
+    const [emaill, setEmaill] = useState("");
+    const [phonee, setPhonee] = useState("");
     const [pswd, setPswd] = useState("");
 
     const [allEntry, setAllEntry] = useState([]);
@@ -9,7 +11,7 @@ const MultipleInputs = () => {
     const submitForm = (e) => {
         e.preventDefault();
 
-        const newEntry = { email: name, password: pswd}
+        const newEntry = { name: fname, email: emaill, phone: phonee, password: pswd}
 
         setAllEntry([ ...allEntry, newEntry]);
         console.log();
@@ -18,18 +20,22 @@ const MultipleInputs = () => {
     <>
         <form action="" onSubmit={submitForm}>
             <div>
-                <label htmlFor="Firstname">First Name</label>
-                <input type="text" autoComplete='off' name='Firstname' id='Firstname' required
-                value={name}
-                onChange={(e) => setName(e.target.value)}/>
+                <label htmlFor="firstname">First Name</label>
+                <input type="text" autoComplete='off' name='firstname' id='firstname' required
+                value={fname}
+                onChange={(e) => setFname(e.target.value)}/>
             </div>
             <div>
                 <label htmlFor="email">Email</label>
-                <input type="email" autoComplete='off' name='email' id='email' required/>
+                <input type="email" autoComplete='off' name='email' id='email' required
+                value={emaill}
+                onChange={(e) => setEmaill(e.target.value)}/>
             </div>
             <div>
                 <label htmlFor="phone">Phone</label>
-                <input type="number" autoComplete='off' name='phone' id='phone' required/>
+                <input type="number" autoComplete='off' name='phone' id='phone' required
+                value={phonee}
+                onChange={(e) => setPhonee(e.target.value)}/>
             </div>
             <div>
                 <label htmlFor="password">Password</label>
@@ -40,18 +46,18 @@ const MultipleInputs = () => {
             <button type='submit'>Sign up</button>
         </form>
 
-        <div>
+        {/* <div>
             {
                 allEntry.map((curElm) => {
                     return (
-                        <div className='showDataStyle' key={""}>
+                        <div className='showDataStyle'>         NOT WORKING!
                             <p>{curElm.name}</p>
                             <p>{curElm.pswd}</p>
                         </div>
                     )
                 })
             }
-        </div>
+        </div> */}
     </>
   )
 }
