@@ -17,10 +17,8 @@ const MultipleInputs = () => {
     const handleInput = (e) => {
         const nameee = e.target.name
         const valuee = e.target.value
-        console.log(nameee, valuee)
 
         setUserSignUpData({ ...userSignUpData, [nameee]: valuee })
-        console.log({ ...userSignUpData, [nameee]: valuee })
     }
 
     // Store the user input data somewhere to show them up
@@ -28,9 +26,9 @@ const MultipleInputs = () => {
         e.preventDefault()
 
         const allUserData = { ...userSignUpData, id: new Date().getTime().toString()}
-
+        // console.log(allRecords)
         setAllRecords([ ...allRecords, allUserData])
-        console.log(allRecords)
+        // console.log(allRecords)
 
         setUserSignUpData({firstname: "", email: "", phone: "", password: ""})
     }
@@ -69,7 +67,7 @@ const MultipleInputs = () => {
         <div>
             {
                 allRecords.map((curElm) => {
-                    // const [firstname, email] = curElm                Here Array Destructuring won't work, use OBJECT DESTRUCTURING
+                    // const [firstname, email] = curElm                Here Array Destructuring won't work, use OBJECT DESTRUCTURING. Note that allRecords is an ARRAY but curElm is an OBJECT, hence we're doing Object Destructuring
                     const {firstname, email, id} = curElm
                     return (
                         <div className='showDataStyle' key={id}>     
