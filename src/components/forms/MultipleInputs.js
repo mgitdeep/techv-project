@@ -11,10 +11,10 @@ const MultipleInputs = () => {
     const submitForm = (e) => {
         e.preventDefault();
 
-        const newEntry = { name: fname, email: emaill, phone: phonee, password: pswd}
+        const newEntry = { name: fname, email: emaill, phone: phonee, password: pswd, id: new Date().getTime().toString()}
 
         setAllEntry([ ...allEntry, newEntry]);
-        console.log();
+        console.log(allEntry);
     }
   return (
     <>
@@ -46,18 +46,20 @@ const MultipleInputs = () => {
             <button type='submit'>Sign up</button>
         </form>
 
-        {/* <div>
+        <div>
             {
                 allEntry.map((curElm) => {
+                    const [name, email, id] = curElm                            // Array Destructuring
                     return (
-                        <div className='showDataStyle'>         NOT WORKING!
-                            <p>{curElm.name}</p>
-                            <p>{curElm.pswd}</p>
+                        <div className='showDataStyle' key={id}>        
+                            {/* <p>{curElm.name}</p> */}
+                            <p>{name}</p>
+                            <p>{email}</p>
                         </div>
                     )
                 })
             }
-        </div> */}
+        </div>
     </>
   )
 }
