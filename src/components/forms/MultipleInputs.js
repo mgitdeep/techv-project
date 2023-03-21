@@ -1,3 +1,5 @@
+// SIGNUP FORM Ready To Use
+
 import React, { useState } from 'react'
 
 const MultipleInputs = () => {
