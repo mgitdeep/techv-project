@@ -1,17 +1,17 @@
-html {
+/* html {
     font-size: 90.5%;
   }
-  
+   */
   body {
     min-height: 100;
     width: 100;
-    margin-top: 80px;
-    background-color: #34495e;
+    /* margin-top: 80px; */
+    background-color: #ffffff;
     /* display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column; */
-    color: aliceblue;
+    color: rgb(4, 45, 80);
     font-family: "Raleway", sans-serif;
   }
   
@@ -35,7 +35,7 @@ html {
   }
   
   h1 {
-    font-size: 7rem;
+    font-size: 3rem;
     text-transform: capitalize;
   }
   
@@ -82,7 +82,7 @@ html {
     border-radius: 1rem;
     outline: none;
     text-align: left;
-    margin-top: 50px;
+    margin-top: 100px;
   }
   
   form label {

@@ -1,8 +1,9 @@
 // SIGNUP FORM Ready To Use
 
+// import '../../styles/Signup.css'
 import React, { useState } from 'react'
 
-const MultipleInputs = () => {
+const Signup = () => {
 
     const [userSignUpData, setUserSignUpData] = useState({
         firstname: "",
@@ -82,4 +83,4 @@ const MultipleInputs = () => {
   )
 }
 
-export default MultipleInputs
+export default Signup
