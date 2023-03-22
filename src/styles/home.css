@@ -1,0 +1,44 @@
+.btnn {
+  background: none;
+  border: none;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10rem;
+  width: 15rem;
+}
+
+.btnn:hover {
+  color: rgb(39, 37, 36);
+}
+
+.dropdown {
+  position: relative;
+  /* display: flex;
+    justify-content: flex-start; */
+  margin-right: 60rem;
+  margin-top: 30px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.25rem);
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 0.45rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.21);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  /* Here we're applying the transition on the Opacity property */
+
+  margin-left: 13rem;
+}
+
+.dropdown > .btnn:focus + .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,5 +1,5 @@
 import Home from "./components/Home";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Signup from "./components/forms/Signup";
@@ -8,15 +8,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 import './styles/App.css'
-import './styles/header.css'
-import './styles/Signup.css'
+import './styles/navbar.css'
+import './styles/signup.css'
+import './styles/home.css'
 
 
 function App() {
 
   return (
     <BrowserRouter>
-    <Header />
+    <Navbar />
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/about" element={<About />}/>

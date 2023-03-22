@@ -1,0 +1,96 @@
+nav {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  background-color: #ecf0f4;
+  box-shadow: 0px 3px 50px 3px rgb(216, 216, 216);
+  top: 0%;
+  z-index: 10;
+  font-size: large;
+}
+/* main:hover {
+    color: aliceblue;
+    background-color: blue;
+} */
+.hv:hover {
+    opacity: 0.7;
+}
+h1 {
+  text-transform: uppercase;
+}
+
+main {
+  width: 70%;
+  /* font-size: medium; */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.onlynav a {
+  color: #000000;
+  /* font-size: bold; */
+  margin: 1rem;
+}
+
+.signup {
+    color: rgb(0, 0, 0);
+    background-color: aqua;
+    padding: 0.9rem;
+    border-radius: 15px;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.city-btn {
+  /* position: fixed; */
+  background: none;
+  border: none;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  /* padding: 1rem;
+  z-index: 1; */
+}
+
+.city-btn:hover {
+  color: rgb(39, 37, 36);
+}
+
+.city-select {
+  position: relative;
+  /* display: flex;
+  justify-content: flex-start; */
+  /* margin-right: 60rem;
+  margin-top: 30px; */
+  height: 48px;
+  width: 270px;
+  max-height: 310px;
+  overflow: unset;
+  z-index: 1;
+}
+
+.dropdown-city {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.25rem);
+  background-color: white;
+  padding: 0.75rem;
+  border-radius: 0.45rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.21);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: 150ms ease-in-out, transform 150ms ease-in-out;
+  /* Here we're applying the transition on the Opacity property */
+
+  height: 300px;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.city-select > .btnn:focus + .dropdown-city {
+  /* opacity: 1; */
+  transform: translateY(0);
+}
