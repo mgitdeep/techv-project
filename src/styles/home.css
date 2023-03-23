@@ -1,4 +1,72 @@
-.btnn {
+body {
+  margin: 0;
+}
+
+.dropBtn {
+  cursor: pointer;
+  background: none;
+  text-decoration: none;
+  font-family: inherit;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.dropdown {
+  position: relative;
+  margin-top: 30px;
+  margin-left: 200px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 1rem);
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .1);
+  display: grid;
+  line-height: 50px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.dropdown > .dropBtn:focus + .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.horizontalCategories {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .btnn {
   background: none;
   border: none;
   text-decoration: none;
@@ -15,13 +83,13 @@
 }
 
 .dropdown {
-  position: relative;
+  position: relative; */
   /* display: flex;
     justify-content: flex-start; */
-  margin-right: 60rem;
+  /* margin-right: 60rem;
   margin-top: 30px;
-}
-
+} */
+/* 
 .dropdown-menu {
   position: absolute;
   left: 0;
@@ -32,13 +100,13 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.21);
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out; */
   /* Here we're applying the transition on the Opacity property */
 
-  margin-left: 13rem;
+  /* margin-left: 13rem;
 }
 
 .dropdown > .btnn:focus + .dropdown-menu {
   opacity: 1;
   transform: translateY(0);
-}
+} */

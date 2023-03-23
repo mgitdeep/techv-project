@@ -1,6 +1,6 @@
 // SIGNUP FORM Ready To Use
 
-// import '../../styles/Signup.css'
+// import '../../styles/signup.css'
 import React, { useState } from 'react'
 
 const Signup = () => {
@@ -37,25 +37,25 @@ const Signup = () => {
   return (
     <>
         <form action="" onSubmit={submitForm}>
-            <div>
+            <div className='signupDivs'>
                 <label htmlFor="firstname">First Name</label>
                 <input type="text" autoComplete='off' name='firstname' id='firstname' required
                 value={userSignUpData.firstname}
                 onChange={handleInput}/>
             </div>
-            <div>
+            <div className='signupDivs'>
                 <label htmlFor="email">Email</label>
                 <input type="email" autoComplete='off' name='email' id='email' required
                 value={userSignUpData.email}
                 onChange={handleInput}/>
             </div>
-            <div>
+            <div className='signupDivs'>
                 <label htmlFor="phone">Phone</label>
                 <input type="number" autoComplete='off' name='phone' id='phone' required
                 value={userSignUpData.phone}
                 onChange={handleInput}/>
             </div>
-            <div>
+            <div className='signupDivs'>
                 <label htmlFor="password">Password</label>
                 <input type="password" autoComplete='off' name='password' id='password' required
                 value={userSignUpData.password}
@@ -65,15 +65,15 @@ const Signup = () => {
         </form>
         
        
-        <div>
+        <div className='signupDivs'>
             {
                 allRecords.map((curElm) => {
                     // const [firstname, email] = curElm                Here Array Destructuring won't work, use OBJECT DESTRUCTURING. Note that allRecords is an ARRAY but curElm is an OBJECT, hence we're doing Object Destructuring
                     const {firstname, email, id} = curElm
                     return (
-                        <div className='showDataStyle' key={id}>     
-                            <p>{firstname}</p>
-                            <p>{email}</p>
+                        <div className='showDataStyle signupDivs' key={id}>     
+                            <p className='signupPara'>{firstname}</p>
+                            <p className='signupPara'>{email}</p>
                         </div>
                     )
                 })
