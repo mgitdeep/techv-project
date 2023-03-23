@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 // import '../styles/navbar.css'
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
 
     <nav className='onlynav'>
@@ -16,10 +16,10 @@ const Navbar = () => {
             </div>
       </div> */}
       <main>
-        <Link to='/about' className='hv'><b>About</b></Link>
-        <Link to='/contact' className='hv'><b>Contact</b></Link>
+        <Link to='/about' className='hv'><b>{props.about}</b></Link>
+        <Link to='/contact' className='hv'><b>{props.contact}</b></Link>
       </main>
-      <Link to='/signup' className='signup hv'><div><b>Signup</b></div></Link>
+      <Link to='/signup' className='signup hv'><div><b>{props.signup}</b></div></Link>
       {/* <div>Signup</div> */}
     </nav>
   )
