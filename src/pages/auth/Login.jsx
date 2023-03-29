@@ -43,7 +43,7 @@ const Login = () => {
         setLoader(false)
 
         toast.success("Login Successful!")
-        navigateTo("/")
+        navigateTo("/admin")
      
       })
       .catch((error) => {
@@ -74,7 +74,7 @@ const Login = () => {
       console.log(user)
       toast.success("Login Successful!")
 
-      navigateTo("/")
+      navigateTo("/admin")
 
     }).catch((error) => {
       
