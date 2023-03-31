@@ -2,6 +2,8 @@ import style from "./MyProfile.module.scss"
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import app from "../../firebase/config"
+import Card from "../../components/card/Card";
+import { toast } from "react-toastify";
 // import { ref, uploadBytes } from "firebase/storage";
 // import { v4 } from "uuid";
 // import { toast } from "react-toastify";
@@ -32,8 +34,23 @@ const MyProfile = () => {
     getUsers();
   }, [])
 
-  const createUser = async () => {
-    await addDoc(usersCollectionRef, {fullName: newName, address: newAddress, email: newEmail, phone: newPhone})
+  const createUser = async (e) => {
+
+    if (newName !=="" && newAddress !=="" && newEmail !=="" && newPhone !== 0) {
+      await addDoc(usersCollectionRef, {fullName: newName, address: newAddress, email: newEmail, phone: newPhone})
+
+      setNewName(e.target.value = "")
+      setNewAddress(e.target.value = "")
+      setNewEmail(e.target.value = "")
+      setNewPhone(e.target.value = 0)
+
+      toast.success("Profile updated!")
+    } else {
+      toast.error("Enter each field!")
+    }
+    
+
+    
   }
 
   // Write Data to Database without taking user inputs
@@ -79,37 +96,43 @@ const MyProfile = () => {
 
           {/* This is how we can fetch the Data from Firestore Database */}
 
+          <Card>
           <div className={style.showData}>
 
             <h2>Profile info</h2>
             {users.map((user, i) => {
               return (
                 <div key={i}>
-                  <h4>City: {user.fullName}</h4>
-                  <h4>Pin: {user.address}</h4>
+                  <p>Name: {user.fullName}</p>
+                  <p>Address: {user.address}</p>
+                  <p>Email: {user.email}</p>
+                  <p>Phone: {user.phone}</p>
                 </div>
               )
             })}
             
           </div>
+          </Card>
           
-          <div className={style.updateData}>
-            <h2>Complete your profile</h2>
-            <input type="text" placeholder="Full name" 
-            onChange={(e) => setNewName(e.target.value)}/>
+          <Card>
+            <div className={style.updateData}>
+              <h2>Complete your profile</h2>
+              <input type="text" placeholder="Full name" required
+              onChange={(e) => setNewName(e.target.value)}/>
 
-            <input type="text" placeholder="Address" 
-            onChange={(e) => setNewAddress(e.target.value)}/>
+              <input type="text" placeholder="Address" required
+              onChange={(e) => setNewAddress(e.target.value)}/>
 
-            <input type="email" placeholder="Email" 
-            onChange={(e) => setNewEmail(e.target.value)}/>
+              <input type="email" placeholder="Email" required
+              onChange={(e) => setNewEmail(e.target.value)}/>
 
-            <input type="number" placeholder="Phone" 
-            onChange={(e) => setNewPhone(e.target.value)}/>
+              <input type="number" placeholder="Phone" required
+              onChange={(e) => setNewPhone(e.target.value)}/>
 
-            <button onClick={createUser}>Update Profile</button>
-          {/* <button onClick={writeData}>Put Data</button> */}
-          </div>
+              <button onClick={createUser} className='--btn --btn-primary --btn-block'>Save changes</button>
+            {/* <button onClick={writeData}>Put Data</button> */}
+            </div>
+          </Card>
         </div>
     </div>
   )
