@@ -1,0 +1,23 @@
+
+.mainSection{
+
+    height: 700px;
+
+    .profile {
+        display: flex;
+        justify-content: center;
+        gap: 6rem;
+        margin-top: 100px;
+        // height: 700px;
+    
+        .showData {
+            display: grid;
+            justify-content: center;
+        }
+    
+        .updateData {
+            display: grid;
+            justify-content: center;
+        }
+    }
+}
