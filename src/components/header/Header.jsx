@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 // React-redux
 import { useDispatch } from "react-redux";
 import { REMOVE_ACTIVE_USER, SET_ACTIVE_USER } from "../../redux/slice/authSlice";
+import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLinks";
 
 
 const logo = (
@@ -143,21 +144,32 @@ const Header = () => {
 
           <div className={styles["header-right"]} onClick={hideMenu}>
             <span className={styles.links}>
+              <ShowOnLogout>
               <NavLink to="/login" className={activeLink}>
                 Login
               </NavLink>
-              <a href="#user">
+              </ShowOnLogout>
+
+              <ShowOnLogin>
+              <a href="#user" style={{color: "#ff7722"}}>
                 <FaUserCircle size={16} /> Hi, {displayName}
               </a>
+              </ShowOnLogin>
+              <ShowOnLogout>
               <NavLink to="/register" className={activeLink}>
                 Register
               </NavLink>
+              </ShowOnLogout>
+              <ShowOnLogin>
               <NavLink to="/order-history" className={activeLink}>
                 My Orders
               </NavLink>
+              </ShowOnLogin>
+              <ShowOnLogin>
               <NavLink to="/" onClick={logoutUser}>
                 Logout
               </NavLink>
+              </ShowOnLogin>
             </span>
             {cart}
           </div>
