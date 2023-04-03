@@ -1,8 +1,12 @@
-
+import style from './Ad.module.scss'
 
 const Ad = () => {
   return (
-    <div>Ad</div>
+    <div className={style.section}>
+      <div className={style.item}>
+      <h3>Coming soon..</h3>
+      </div>
+    </div>
   )
 }
 

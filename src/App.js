@@ -2,10 +2,11 @@ import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Pages
-import {Home, Contact, Login, Register, Reset, Admin, MyProfile, Ad, Ads} from './pages'
+import {Home, Contact, Login, Register, Reset, Admin, MyProfile, Ad, Ads, OrderHistory} from './pages'
 
 // Components
 import {Header, Footer} from './components'
+
 function App() {
   return (
     <>
@@ -21,6 +22,7 @@ function App() {
           <Route path='/myprofile' element={<MyProfile />}/>
           <Route path='/ad' element={<Ad />}/>
           <Route path='/ads' element={<Ads />}/>
+          <Route path='/order-history' element={<OrderHistory />}/>
         </Routes>
         <Footer />
       </BrowserRouter>

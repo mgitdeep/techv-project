@@ -1,8 +1,12 @@
-
+import style from './OrderHistory.module.scss'
 
 const OrderHistory = () => {
   return (
-    <div>OrderHistory</div>
+    <div className={style.section}>
+      <div className={style.item}>
+      <h3>Coming soon..</h3>
+      </div>
+    </div>
   )
 }
 

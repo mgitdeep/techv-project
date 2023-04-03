@@ -1,8 +1,12 @@
-import './Cart.module.scss'
+import style from './Cart.module.scss'
 
 const Cart = () => {
   return (
-    <div>Cart</div>
+    <div className={style.section}>
+      <div className={style.item}>
+      <h3>Coming soon..</h3>
+      </div>
+    </div>
   )
 }
 

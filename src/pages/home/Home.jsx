@@ -1,32 +1,11 @@
-
+import style from './Home.module.scss'
 
 const Home = () => {
   return (
-    <div>Home
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
-      <h3>sellitNow</h3>
+    <div className={style.section}>
+      <div className={style.item}>
+      <h3>Coming soon..</h3>
+      </div>
     </div>
   )
 }

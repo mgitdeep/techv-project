@@ -32,7 +32,7 @@ const MyProfile = () => {
     };
 
     getUsers();
-  }, [])
+  }, [usersCollectionRef])
 
   const createUser = async (e) => {
 
