@@ -2,17 +2,19 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = express();
-const port = 3000;
+// const port = 3000;
 
 dotenv.config({path: './config.env'})
 
-const DB = process.env.DATABASE;
+// const DB = process.env.DATABASE;
+const PORT = process.env.PORT;
 
-mongoose.connect(DB).then(() => {
-    console.log('Connection with Remote Database is successful..!')         // mongoose.connect is a Promise hence we've used THEN and CATCH to handle the resolve & reject state respectively
-}).catch((err) => {
-    console.log(err)
-})
+// mongoose.connect(DB).then(() => {
+//     console.log('Connection with Remote Database is successful..!')         // mongoose.connect is a Promise hence we've used THEN and CATCH to handle the resolve & reject state respectively
+// }).catch((err) => {
+//     console.log(err)
+// })
+require('./db/conn')
 
 const middleware = (req, res, next) => {
     console.log('Middleware doing its job');
@@ -44,6 +46,7 @@ app.get("/signup", (req, res) => {
 
 // console.log('Just do it')
 
-app.listen(port, () => {
-    console.log(`Server is running at port ${port}`);
+// Listen from the Server:
+app.listen(PORT, () => {
+    console.log(`Server is running at port ${PORT}`);
 })
