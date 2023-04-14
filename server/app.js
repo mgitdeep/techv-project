@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const app = express();
 const port = 3000;
 
-const DB = 'mongodb+srv://mkdb:MKdb%40123@cluster0.oth2bpd.mongodb.net/mernstack';
+dotenv.config({path: './config.env'})
+
+const DB = process.env.DATABASE;
 
 mongoose.connect(DB).then(() => {
     console.log('Connection with Remote Database is successful..!')         // mongoose.connect is a Promise hence we've used THEN and CATCH to handle the resolve & reject state respectively
