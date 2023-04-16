@@ -16,17 +16,20 @@ const PORT = process.env.PORT;
 // })
 require('./db/conn')
 
+app.use(require('./router/auth'))
+
 const middleware = (req, res, next) => {
     console.log('Middleware doing its job');
     next();
 }
 
-// middleware()
 
+// Using Express Routing
 app.get("/", (req, res) => {
     res.send("Hello.. I'm a bot from server");
 });
 
+// middleware()
 app.get("/about", middleware, (req, res) => {
     console.log('Inside the About section')
     res.send("Hello.. I'm a bot from About server");
