@@ -16,6 +16,9 @@ const PORT = process.env.PORT;
 // })
 require('./db/conn')
 
+// This commad will let our server understand that user is sending JSON data - will give "undefined" if not use this line
+app.use(express.json())
+
 app.use(require('./router/auth'))
 
 const middleware = (req, res, next) => {
@@ -26,7 +29,7 @@ const middleware = (req, res, next) => {
 
 // Using Express Routing
 app.get("/", (req, res) => {
-    res.send("Hello.. I'm a bot from server");
+    res.send("Hello.. I'm a bot from server - app.js");
 });
 
 // middleware()
