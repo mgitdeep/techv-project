@@ -23,14 +23,14 @@ router.post('/register', (req, res) => {
             return res.status(422).json({ error: "Email already exist!"})
         }
 
-        // Else we're going to save the newly registred user data into Database
+        // Else we're going to save the newly registred user data into Database - below you can also do > const user = new Users(req.body)
         const user = new Users({name, email, phone, work, password, cpassword})
         user.save().then(() => {
             res.status(201).json({message: "User registered successfully!"})
         }).catch((err) => {
             res.status(500).json({error: "Failed to register!"})
         })
-
+ 
     }).catch((err) => {
         console.log(err)
     })
@@ -48,7 +48,7 @@ router.post('/register', (req, res) => {
     // console.log(email)
     // console.log(work)
     // res.send("Registration page is here")
-    res.json({ message: req.body})              // If commented, will show "loading" in Postman
+    // res.json({ message: req.body})              // If commented, will show "loading" in Postman
 })
 
 module.exports = router
