@@ -46,7 +46,7 @@ app.get("/signin", (req, res) => {
     res.send("Hello.. I'm a bot from Login server");
 });
 
-app.get("/signup", (req, res) => {
+app.get("/register", (req, res) => {
     res.send("Hello.. I'm a bot from Register server");
 });
 
