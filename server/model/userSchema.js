@@ -1,6 +1,7 @@
 
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -31,7 +32,16 @@ const userSchema = new mongoose.Schema({
     cpassword: {
         type: String,
         required: true
-    }
+    },
+
+    tokens: [
+        {
+            token: {
+                type: String,
+                required: true
+            }
+        }
+    ]
 })
 
 
@@ -44,6 +54,21 @@ userSchema.pre('save', async function(next) {
     next()
     console.log("Inside Password hashing")
 })
+
+
+// We're generating Token
+userSchema.methods.generateAuthToken = async function() {
+
+    try {
+        let tokenIs = jwt.sign({ _id: this._id}, process.env.SECRET_KEY)
+        this.tokens = this.tokens.concat({token: tokenIs})
+        await this.save()
+        return tokenIs
+
+    } catch(err) {
+        console.log(err)
+    }
+}
 
 
 // Collection creation
