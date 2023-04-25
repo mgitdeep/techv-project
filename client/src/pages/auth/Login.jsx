@@ -60,11 +60,11 @@ const Login = () => {
         <div className={styles.form}>
           <h2>Login</h2>
           <form>
-            <input type="text" placeholder='Email' required
+            <input type="text" placeholder='Email' required autoComplete='on'
             value={email}
             onChange={(e) => setEmail(e.target.value)}/>
 
-            <input type="password" placeholder='Password' required
+            <input type="password" placeholder='Password' required autoComplete='on'
             value={password}
             onChange={(e) => setPassword(e.target.value)}/>
 

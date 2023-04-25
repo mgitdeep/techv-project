@@ -14,11 +14,11 @@ router.get("/", (req, res) => {
 
 //Registration
 
-router.post('/register', async(req, res) => {
+router.post("/register", async(req, res) => {
 
-    const {name, email, phone, work, password, cpassword} = req.body
+    const {email, password, cpassword} = req.body
 
-    if (!name || !email || !phone || !work || !password || !cpassword) {
+    if (!email || !password || !cpassword) {
         return res.status(422).json({ error: "Please fill up the rest!"})
     }
 
@@ -26,14 +26,17 @@ router.post('/register', async(req, res) => {
         const userExists = await Users.findOne({ email: email })
 
         if (userExists) {
+            console.log("Email already exist :(")
             return res.status(422).json({ error: "Email already exist :("})
         } else if (password != cpassword) {
+            console.log("Passwords are not matching :(")
             return res.status(422).json({ error: "Passwords are not matching :("})
         } else {
-            const user = new Users({name, email, phone, work, password, cpassword})
+            const user = new Users({email, password, cpassword})
 
             const userRegister = await user.save()
         
+            console.log("User registered successfully :)")
             res.status(201).json({message: "User registered successfully :)"})
         }
         

@@ -2,12 +2,12 @@
 
 import styles from './Auth.module.scss'
 import registerImg from "../../assets/register.png"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Card from '../../components/card/Card'
 import { useState } from 'react'
 
 // Toastify imports
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // // Firebase integration
@@ -19,11 +19,50 @@ const Register = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmpass, setConfirmpass] = useState("")
+  const [cpassword, setCpassword] = useState("")
   // const [loader, setLoader] = useState(false)
 
-  // const navigateToLogin = useNavigate()
+  const navigateToLogin = useNavigate()
 
+
+  const handleRegister = async (f) => {
+    f.preventDefault()
+
+    if ( password !== cpassword ) {
+      toast.error("Password do not match!")
+    } else if ( email === "" || password === "" || cpassword === "") {
+      toast.error("Please enter details")
+    } else {
+
+      const resPonse = await fetch("/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email, password, cpassword
+      })
+      })
+  
+      const data = await resPonse.json()
+  
+      if (data.status === 422 || !data) {
+        window.alert("Registration denied!")
+        console.log("Registration denied!")
+      } else {
+        window.alert("Registration successful!")
+        console.log("Registration successful!")
+  
+        navigateToLogin("/login")
+      }
+
+      setEmail("")
+      setPassword("")
+      setCpassword("")
+    }
+
+    
+  }
   
 
   return (
@@ -35,25 +74,25 @@ const Register = () => {
         <Card>
           <div className={styles.form}>
             <h2>Register</h2>
-            <form>
+            <form method="POST">
               {/* <div> */}
               {/* <label htmlFor="email">
               <i className="zmdi zmdi-account"></i>
               </label> */}
               <input type="text" placeholder='Email' required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}/>
+              onChange={(e) => setEmail(e.target.value)} autoComplete='on'/>
               {/* </div> */}
 
-              <input type="password" placeholder='Password' required
+              <input type="password" placeholder='Password' required 
               value={password}
-              onChange={(e) => setPassword(e.target.value)}/>
+              onChange={(e) => setPassword(e.target.value)} autoComplete='on'/>
 
               <input type="password" placeholder='Confirm Password' required
-              value={confirmpass}
-              onChange={(e) => setConfirmpass(e.target.value)}/>
+              value={cpassword}
+              onChange={(e) => setCpassword(e.target.value)} autoComplete='on'/>
 
-              <button className='--btn --btn-primary --btn-block' >Register</button>
+              <button className='--btn --btn-primary --btn-block' onClick={handleRegister}>Register</button>
 
             </form>
             <span className={styles.register}>
