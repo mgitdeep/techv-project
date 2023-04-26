@@ -2,7 +2,7 @@
 
 import styles from './Auth.module.scss'
 import loginImg from "../../assets/login.png"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BsGoogle } from 'react-icons/bs'
 import Card from '../../components/card/Card'
 import { useState } from 'react'
@@ -20,9 +20,38 @@ const Login = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  // const [loader, setLoader] = useState(false)
 
-  // const navigateTo = useNavigate()
+  const navigateTo = useNavigate()
+
+  const loginUser = async (f) => {
+    f.preventDefault()
+
+    const resPonse = await fetch('/signin', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email, password
+      })
+    })
+
+    // Now here the "resPonse" contains the data which are in Pending state, we can get them by:
+
+    const data = resPonse.json()
+
+    if(resPonse.status === 422 || !data) {
+      window.alert("Invalid Credentials!")
+    } else {
+      window.alert("Login Successful!")
+
+      navigateTo('/')
+    }
+
+  }
+  
+
+  // const [loader, setLoader] = useState(false)
 
   
 
@@ -59,7 +88,7 @@ const Login = () => {
       <Card>
         <div className={styles.form}>
           <h2>Login</h2>
-          <form>
+          <form method='POST'>
             <input type="text" placeholder='Email' required autoComplete='on'
             value={email}
             onChange={(e) => setEmail(e.target.value)}/>
@@ -68,7 +97,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}/>
 
-            <button className='--btn --btn-primary --btn-block' >Login</button>
+            <button className='--btn --btn-primary --btn-block' onClick={loginUser}>Login</button>
 
             <div className={styles.links}>
               <Link to="/reset">Reset Password</Link>
