@@ -21,10 +21,10 @@ app.use(express.json())
 
 app.use(require('./router/auth'))
 
-const middleware = (req, res, next) => {
-    console.log('Middleware doing its job');
-    next();
-}
+// const middleware = (req, res, next) => {
+//     console.log('Middleware doing its job');     // commented out while working with the User authentication process
+//     next();
+// }
 
 
 // Using Express Routing
@@ -33,10 +33,11 @@ app.get("/", (req, res) => {
 });
 
 // middleware()
-app.get("/about", middleware, (req, res) => {
-    console.log('Inside the About section')
-    res.send("Hello.. I'm a bot from About server");
-}); 
+// app.get("/about", middleware, (req, res) => {
+//     console.log('Inside the About section')                 
+//     next();
+//     res.send("Hello.. I'm a bot from About server");
+// }); 
 
 app.get("/contact", (req, res) => {
     // res.cookie("Test", "contentss")

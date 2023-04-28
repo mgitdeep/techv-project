@@ -100,6 +100,10 @@ const Header = () => {
                 Register
               </NavLink>
             
+              <NavLink to="/myprofile" className={activeLink}>
+                My Profile
+              </NavLink>
+            
               <NavLink to="/order-history" className={activeLink}>
                 My Orders
               </NavLink>

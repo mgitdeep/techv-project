@@ -3,6 +3,12 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const authenticate = require('../middleware/authenticate')
+
+// Require to send the cookie from front end to backend
+const cookieParser = require("cookie-parser")
+router.use(cookieParser())
+
 
 require('../db/conn')
 const Users = require('../model/userSchema')
@@ -111,5 +117,15 @@ router.post('/signin', async(req, res) => {
     
 
 })
+
+
+// My Profile page:
+// Here we're using the Middleware concept
+router.get("/myprofile", authenticate, (req, res, next) => {
+    console.log('Inside the About section')                 
+    next();
+    // res.send("Hello.. I'm a bot from About server");
+    res.send(req.rootUser);
+});
 
 module.exports = router
