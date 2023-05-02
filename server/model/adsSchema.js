@@ -18,10 +18,10 @@ const adsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
-        type: Image,
-        required: true
-    },
+    // image: {
+    //     type: Image,
+    //     required: true
+    // },
     location: {
         type: String,
         required: true
@@ -35,7 +35,7 @@ const adsSchema = new mongoose.Schema({
         required: true
     },
     contact_info: {
-        type: Image,
+        type: String,
         required: true
     }
 })

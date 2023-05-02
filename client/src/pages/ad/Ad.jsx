@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { storage } from './firebase';
 
 const Ad = () => {
 
@@ -15,12 +16,25 @@ const Ad = () => {
     category: "", 
     price: "", 
     condition: "", 
-    image: "", 
+    // image: "", 
     location: "", 
     description: "", 
     advertiser_info: "", 
     contact_info: ""
   })
+
+  // Uploading image to Firebase
+  const [imagE, setImagE] = useState('')
+
+  const upload = () => {
+    if (imagE == null) {
+      return
+    } else {
+      const imageRef = storage.ref(`/image/${imagE.name}`).put(imagE).on("State changed", alert("Success"), alert)
+      
+      imageRef()
+    }
+  }
 
   const navigateToMyProfile = useNavigate()
 
@@ -36,19 +50,19 @@ const Ad = () => {
   const handleAdPost = async (f) => {
     f.preventDefault()
 
-    const {name, category, price, condition, image, location, description, advertiser_info, contact_info} = ad
+    const {name, category, price, condition, location, description, advertiser_info, contact_info} = ad
 
-    if (!name || !category || !price || !condition || !image || !location || !description || !advertiser_info || !contact_info) {
+    if (!name || !category || !price || !condition || !location || !description || !advertiser_info || !contact_info) {
       toast.error("Please enter all details!")
     } else {
 
-      const resPonse = await fetch('/ad', {
+      const resPonse = await fetch("/ad", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name, category, price, condition, image, location, description, advertiser_info, contact_info
+          name, category, price, condition, location, description, advertiser_info, contact_info
       })
       })
 
@@ -60,6 +74,8 @@ const Ad = () => {
       } else {
         window.alert("Ad posted successfully!")
         console.log("Ad posted successfully!")
+
+        upload()
   
         navigateToMyProfile("/myprofile")
       }
@@ -104,7 +120,10 @@ const Ad = () => {
 
               <p>
               <label htmlFor="img">Select image:</label>
-              <input type="file" id="img" name="image" accept="image/*" />
+              <input type="file" id="img" name="image" accept="image/*" 
+              onChange={(e) => {setImagE(e.target.files[0])}}/>
+              
+              {/* <button onClick={upload}>Upload</button> */}
               {/* <input type="submit" /> */}
               </p>
 

@@ -19,7 +19,10 @@ require('./db/conn')
 // This commad will let our server understand that user is sending JSON data - will give "undefined" if not use this line
 app.use(express.json())
 
+
+// Must write these codes to connect both Front & Back end - without these command you'll get for eg: o	POST http://localhost:3000/ad 404 (Not Found) 
 app.use(require('./router/auth'))
+app.use(require('./router/ads'))
 
 // const middleware = (req, res, next) => {
 //     console.log('Middleware doing its job');     // commented out while working with the User authentication process
@@ -51,6 +54,10 @@ app.get("/signin", (req, res) => {
 app.get("/register", (req, res) => {
     res.send("Hello.. I'm a bot from Register server");
 });
+
+// app.get("/ad", (req, res) => {
+//     res.send("Posting an Ad!")
+// })
 
 // console.log('Just do it')
 
