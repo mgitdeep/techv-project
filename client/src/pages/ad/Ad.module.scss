@@ -22,8 +22,8 @@
         }
         form {
           input[type="text"],
-          input[type="email"],
-          input[type="password"] {
+          input[type="number"],
+          input[type="file"] {
             display: block;
             font-size: 1.6rem;
             font-weight: 300;
@@ -40,16 +40,27 @@
             margin: 5px 0;
           }
     
-          p {
-            text-align: center;
-            margin: 1rem;
-          }
+          // p, label, input {
+          //   display: flex;
+          //   text-align: center;
+          //   margin: 1rem;
+          // }
         }
         .register {
           display: flex;
           justify-content: center;
           align-items: center;
           margin-top: 1rem;
+        }
+
+        .priceNfree {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+
+          label, input {
+            gap: 1rem;
+          }
         }
       }
     

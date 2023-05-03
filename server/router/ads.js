@@ -9,12 +9,12 @@ const Ads = require('../model/adsSchema')
 // Posting a product ad
 router.post("/ad", async(req, res) => {
 
-    const {name, category, price, condition, image, location, description, advertiser_info, contact_info} = req.body
+    const {name, category, price, isFree, condition, location, description, advertiser_info, contact_info} = req.body
 
     if (!name || !category || !price || !condition || !location || !description || !advertiser_info || !contact_info) {
         return res.status(422).json({ error: "Please fill up the rest!"})
     } else {
-        const ad = new Ads({name, category, price, condition, location, description, advertiser_info, contact_info})
+        const ad = new Ads({name, category, price, isFree, condition, location, description, advertiser_info, contact_info})
 
         await ad.save()
 
@@ -24,5 +24,18 @@ router.post("/ad", async(req, res) => {
 
 
 })
+
+
+// Getting the data from database
+router.get('/ads', async (req, res) => {
+    try {
+      const ads = await Ads.find();
+      res.json(ads);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
+
 
 module.exports = router

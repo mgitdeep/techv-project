@@ -14,7 +14,8 @@ const Ad = () => {
   const [ad, setAd] = useState({
     name: "",
     category: "", 
-    price: "", 
+    price: "",
+    isFree: '', 
     condition: "", 
     // image: "", 
     location: "", 
@@ -22,6 +23,8 @@ const Ad = () => {
     advertiser_info: "", 
     contact_info: ""
   })
+
+  const [isFree, setIsFree] = useState(false)
 
   // Uploading image to Firebase
   const [imagE, setImagE] = useState('')
@@ -43,7 +46,7 @@ const Ad = () => {
     console.log(e)
     name = e.target.name
     value = e.target.value
-
+    
     setAd({...ad, [name] : value})
   }
 
@@ -62,7 +65,7 @@ const Ad = () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name, category, price, condition, location, description, advertiser_info, contact_info
+          name, category, price, isFree, condition, location, description, advertiser_info, contact_info
       })
       })
 
@@ -94,13 +97,13 @@ const Ad = () => {
             <h2>Product Ad</h2>
             <form method="POST">
               
-              <p>
-              <label>Product Name</label>
-              <input type="text" name='name' placeholder='' required
+              {/* <p>
+              <label>Product_Name</label> */}
+              <input type="text" name='name' placeholder='Product Name' required
               value={ad.name}
               onChange={handleInputs} 
               autoComplete='off'/>
-              </p>
+              {/* </p> */}
               {/* </div> */}
 
               <input type="text" name='category' placeholder='Category' required 
@@ -108,10 +111,22 @@ const Ad = () => {
               onChange={handleInputs}  
               autoComplete='off'/>
 
+              <div className={styles.priceNfree}>
+              <label>
               <input type="number" name='price' placeholder='Price' required 
               value={ad.price}
               onChange={handleInputs}  
               autoComplete='off'/>
+              </label>
+
+              <label>
+              <input type="checkbox" checked={isFree} name='isFree' placeholder='' required 
+              // value={ad.price}
+              onChange={(e) => setIsFree(e.target.checked)}  
+              autoComplete='off'/>
+              SHARE
+              </label>
+              </div>
 
               <input type="text" name='condition' placeholder='Condition' required
               value={ad.condition}

@@ -14,6 +14,10 @@ const adsSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    isFree: {
+        type: Boolean,
+        required: true
+    },
     condition: {
         type: String,
         required: true
@@ -38,7 +42,7 @@ const adsSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+}, {timestamps: true} )
 
 
 // Collection creation
