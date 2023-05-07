@@ -1,6 +1,11 @@
+// Parent component
+
 import styles from './Ad.module.scss'
 // import { Link, useNavigate } from 'react-router-dom'
 import Card from '../../components/card/Card'
+
+// Importing the child component to send the image
+// import Ads from '../ads/Ads';
 
 // Toastify imports
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +13,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { storage } from './firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+
+// Creating the context to send the Image!
+
+// const adImage = createContext()
 
 const Ad = () => {
 
@@ -17,7 +27,7 @@ const Ad = () => {
     price: "",
     isFree: '', 
     condition: "", 
-    // image: "", 
+    urll: "", 
     location: "", 
     description: "", 
     advertiser_info: "", 
@@ -25,29 +35,51 @@ const Ad = () => {
   })
 
   const [isFree, setIsFree] = useState(false)
+  const [urll, setUrll] = useState(null)
 
   // Uploading image to Firebase
-  const [imagE, setImagE] = useState('')
+  const [imagE, setImagE] = useState(null)
+  const [imageUrl, setImageUrl] = useState(null)
 
   const upload = () => {
     if (imagE == null) {
       return
     } else {
-      const imageRef = storage.ref(`/image/${imagE.name}`).put(imagE).on("State changed", alert("Success"), alert)
+      // const imageRef = storage.ref(`/image/${imagE.name}`).put(imagE).on("State changed", alert("Success"), alert)
+
+      const imageRef = ref(storage, `image/${imagE.name}`)
+
+      uploadBytes(imageRef, imagE).then(() => {
+        getDownloadURL(imageRef).then((url) => {
+          console.log(url)
+          setImageUrl(url)
+
+          //from here we're sending the image url to DB
+          setUrll(imageUrl)
+          
+        }).catch((err) => {
+          console.log(err)
+        })
+        // setImagE(e.target.files[0])
+      }).catch((err) => {
+        console.log(err)
+      })
       
-      imageRef()
+      // imageRef()
     }
+    // setImagE(e.target.files[0])
   }
 
   const navigateToMyProfile = useNavigate()
 
   let name, value
   const handleInputs = (e) => {
-    console.log(e)
+    // console.log(e)
     name = e.target.name
     value = e.target.value
     
-    setAd({...ad, [name] : value})
+    // setAd({...ad, urll: imageUrl})
+    setAd({...ad, [name] : value, urll: imageUrl})
   }
 
   const handleAdPost = async (f) => {
@@ -65,7 +97,7 @@ const Ad = () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name, category, price, isFree, condition, location, description, advertiser_info, contact_info
+          name, category, price, isFree, condition, urll, location, description, advertiser_info, contact_info
       })
       })
 
@@ -80,11 +112,13 @@ const Ad = () => {
 
         upload()
   
-        navigateToMyProfile("/myprofile")
+        // navigateToMyProfile("/myprofile")
       }
     }
     
   }
+  // console.log(imageUrl)
+  // console.log(imagE)
 
   return (
     <div className={styles.mainAuth}>
@@ -94,6 +128,7 @@ const Ad = () => {
         
         <Card>
           <div className={styles.form}>
+            {/* <img src={imageUrl} alt="ad" /> */}
             <h2>Product Ad</h2>
             <form method="POST">
               
@@ -121,12 +156,13 @@ const Ad = () => {
 
               <label>
               <input type="checkbox" checked={isFree} name='isFree' placeholder='' required 
-              // value={ad.price}
               onChange={(e) => setIsFree(e.target.checked)}  
               autoComplete='off'/>
               SHARE
               </label>
               </div>
+
+              {/* <p name="urll" value={ad.urll}>{imageUrl}</p> */}
 
               <input type="text" name='condition' placeholder='Condition' required
               value={ad.condition}
@@ -140,7 +176,10 @@ const Ad = () => {
               
               {/* <button onClick={upload}>Upload</button> */}
               {/* <input type="submit" /> */}
+              {/* <label htmlFor="ad" name="urll" value={ad.urll} onChange={setUrll(imageUrl)}></label> */}
               </p>
+
+              {/* <label htmlFor="ad" name="urll" value={imageUrl} ></label> */}
 
               <input type="text" name='location' placeholder='Location' required
               value={ad.location}
@@ -177,8 +216,20 @@ const Ad = () => {
         </div> */}
         
       </section>
+
+        {/* Passing the image to the Ads.jsx child component */}
+        {/* <Ads image={url}/>     */}
+
+        {/* Trying to pass the image to Ads.jsx through Context API now */}
+
+      {/* <adImage.Provider value={imageUrl}></adImage.Provider> */}
+
+    
     </div>
   )
 }
 
 export default Ad
+
+// Export the Context here
+// export { adImage }

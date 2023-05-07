@@ -9,7 +9,7 @@ import { useState } from 'react'
 // import Loader from '../../components/loader/Loader'
 
 // Toastify imports
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // // Firebase integration & Also integrating Login with Google functionality
@@ -26,15 +26,22 @@ const Login = () => {
   const loginUser = async (f) => {
     f.preventDefault()
 
-    const resPonse = await fetch('/signin', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        email, password
+    if ( !email || !password ) {
+      toast.error("Please enter details")
+    }
+    // else {
+
+      const resPonse = await fetch('/signin', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email, password
+        })
       })
-    })
+    // }
+  
 
     // Now here the "resPonse" contains the data which are in Pending state, we can get them by:
 

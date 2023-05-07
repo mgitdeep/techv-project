@@ -22,10 +22,10 @@ const adsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // image: {
-    //     type: Image,
-    //     required: true
-    // },
+    urll: {
+        type: String,
+        required: true
+    },
     location: {
         type: String,
         required: true

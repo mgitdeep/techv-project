@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = express();
 // const port = 3000;
-const Ads = require('./model/adsSchema')
+// const Ads = require('./model/adsSchema')
 
 dotenv.config({path: './config.env'})
 
