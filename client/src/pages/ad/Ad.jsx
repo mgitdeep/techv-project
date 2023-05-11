@@ -2,10 +2,7 @@
 
 import styles from './Ad.module.scss'
 // import { Link, useNavigate } from 'react-router-dom'
-import Card from '../../components/card/Card'
-
-// Importing the child component to send the image
-// import Ads from '../ads/Ads';
+import Card from '../../components/card/Card' 
 
 // Toastify imports
 import { ToastContainer, toast } from 'react-toastify';
@@ -13,12 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Firebase imports
-// import { storage } from './firebase';
-// import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-
-// Creating the context to send the Image!
-// const adImage = createContext()
 
 const Ad = () => {
 
@@ -28,7 +19,6 @@ const Ad = () => {
     price: "",
     isFree: '', 
     condition: "", 
-    // urll: "", 
     image: "",
     location: "", 
     description: "", 
@@ -38,42 +28,8 @@ const Ad = () => {
 
   const [isFree, setIsFree] = useState(false)
   const [adImage, setAdImage] = useState(null)
-  // const [urll, setUrll] = useState(null)
-
-  // Uploading image to Firebase
-  // const [imagE, setImagE] = useState(null)
-  // const [imageUrl, setImageUrl] = useState(null)
-
-
-  // as we're now going to use Multer, so commenting out this firebase storage code
-  // const upload = () => {
-  //   if (imagE == null) {
-  //     return
-  //   } else {
-  //     // const imageRef = storage.ref(`/image/${imagE.name}`).put(imagE).on("State changed", alert("Success"), alert)
-
-  //     const imageRef = ref(storage, `image/${imagE.name}`)
-
-  //     uploadBytes(imageRef, imagE).then(() => {
-  //       getDownloadURL(imageRef).then((url) => {
-  //         console.log(url)
-  //         setImageUrl(url)
-
-  //         //from here we're sending the image url to DB
-  //         setUrll(imageUrl)
-          
-  //       }).catch((err) => {
-  //         console.log(err)
-  //       })
-  //       // setImagE(e.target.files[0])
-  //     }).catch((err) => {
-  //       console.log(err)
-  //     })
-      
-  //     // imageRef()
-  //   }
-  //   // setImagE(e.target.files[0])
-  // }
+  const isFreeValue = Boolean(isFree); // convert to boolean
+  
 
   const navigateToMyProfile = useNavigate()
 
@@ -83,29 +39,45 @@ const Ad = () => {
     name = e.target.name
     value = e.target.value
     
-    // setAd({...ad, urll: imageUrl})
     setAd({...ad, [name] : value})
   }
 
   const handleAdPost = async (f) => {
     f.preventDefault()
 
-    const {name, category, price, condition, image, location, description, advertiser_info, contact_info} = ad
+    const {name, category, price, condition, location, description, advertiser_info, contact_info} = ad
 
     // if (!name || !category || !price || !condition || !image || !location || !description || !advertiser_info || !contact_info) {
-      if (name && category && price && condition && image && location && description && advertiser_info && contact_info) {
+      if (!name || !category || !price || !condition || !adImage || !location || !description || !advertiser_info || !contact_info) {
       toast.error("Please enter all details!")
     } else {
 
-      const resPonse = await fetch("/ad", {
+      // const resPonse = await fetch("http://localhost:5000/ad", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "multipart/form-data"
+      //   },
+      //   body: JSON.stringify({
+      //     name, category, price, isFree, condition, adImage, location, description, advertiser_info, contact_info
+      // })
+      // })
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('category', category);
+      formData.append('price', price);
+      formData.append('isFree', isFreeValue);
+      formData.append('condition', condition);
+      formData.append('adPic', adImage);
+      formData.append('location', location);
+      formData.append('description', description);
+      formData.append('advertiser_info', advertiser_info);
+      formData.append('contact_info', contact_info);
+
+      const resPonse = await fetch("http://localhost:5000/ad", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name, category, price, isFree, condition, image, location, description, advertiser_info, contact_info
-      })
-      })
+        body: formData
+      });
+
 
       const data = await resPonse.json()
   
@@ -123,8 +95,7 @@ const Ad = () => {
     }
     
   }
-  // console.log(imageUrl)
-  // console.log(imagE)
+
 
   return (
     <div className={styles.mainAuth}>
@@ -136,7 +107,8 @@ const Ad = () => {
           <div className={styles.form}>
             {/* <img src={imageUrl} alt="ad" /> */}
             <h2>Product Ad</h2>
-            <form method="POST" encType="multipart/form-data">
+
+            <form action='/ad' method="POST" encType="multipart/form-data">
               
               {/* <p>
               <label>Product_Name</label> */}
@@ -177,7 +149,7 @@ const Ad = () => {
 
               <p>
               <label htmlFor="img">Select image:</label>
-              <input type="file" id="img" name="adImage"
+              <input type="file" id="img" name="adPic"
               onChange={(e) => setAdImage(e.target.files[0])}
               />
               

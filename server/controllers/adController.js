@@ -1,40 +1,48 @@
 const Ads = require('../model/adsSchema')
 
+const fs = require('fs')
+
 // FUNCTIONAL component
 
-const createAd = async (req, res) => {
-    const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body;
-    const { filename } = req.file;
+// const createAd = async (req, res) => {
+//     // const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body;
+//     const { name, category } = req.body;
+//     // const { filename } = req.file;
   
-    try {
-      if (name && category && price || isFree && condition && location && description && advertiser_info && contact_info && filename) {
-        const newAd = new Ads({
-          name,
-          category,
-          price,
-          isFree,
-          condition,
-          image: filename,
-          location,
-          description,
-          advertiser_info,
-          contact_info
-        });
+//     try {
+//       if (name && category ) {
+//         const newAd = new Ads({
+//           name,
+//           category,
+//           // price,
+//           // isFree,
+//           // condition,
+//           image: {
+//             data: fs.readFileSync('AdImage/' + req.file.filename),
+//             contentType: 'image/png'
+//           },
+//           // location,
+//           // description,
+//           // advertiser_info,
+//           // contact_info
+//         });
   
-        const saveAd = await newAd.save();
+//         const saveAd = await newAd.save();
   
-        if (saveAd) {
-          return res.status(201).json({ message: 'Ad created successfully!' });
-        } else {
-          return res.status(400).json({ message: 'Something wrong!' });
-        }
-      } else {
-        return res.status(400).json({ message: 'All fields are required!' });
-      }
-    } catch (err) {
-      return res.status(400).json(err);
-    }
-  };
+//         if (saveAd) {
+//           console.log('Ad image is saved')
+//           return res.status(201).json({ message: 'Ad created successfully!' });
+//         } else {
+//           console.log('Something wrong!')
+//           return res.status(400).json({ message: 'Something wrong!' });
+//         }
+//       } else {
+//         return res.status(400).json({ message: 'All fields are required!' });
+//       }
+//     } catch (err) {
+//       return res.status(400).json(err);
+//     }
+//   };
   
   const getAds = async (req, res) => {
     try {

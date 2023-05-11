@@ -2,7 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = express();
+const bodyParser = require('body-parser');
 const cors = require('cors');
+
+app.use(cors());    
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// const port = process.env.PORT || 3000;           
 // const port = 3000;
 // const Ads = require('./model/adsSchema')
 
