@@ -92,14 +92,15 @@ return (
           <Card key={i}>
             <div className={style.adContent}>
               <img src={`data:image/jpeg;base64,${base64String}`} alt="adImg" width="300" />
-              <div key={ad._id + 1}> {ad.name} </div>
-              <div key={ad._id + 2}>{ad.category}</div>
-              <div key={ad._id + 3}>{ad.price}</div>
-              <div key={ad._id + 4}>{ad.condition}</div>
-              <div key={ad._id + 5}>{ad.location}</div>
-              <div key={ad._id + 6}>{ad.description}</div>
-              <div key={ad._id + 7}>{ad.advertiser_info}</div>
-              <div key={ad._id + 8}>{ad.contact_info}</div>
+              <div key={ad._id + 1}> Name: {ad.name} </div>
+              <div key={ad._id + 2}>Category: {ad.category}</div>
+              <div key={ad._id + 3}>Price: Rs {ad.price}</div>
+              <div key={ad._id + 4}>Is Free: {ad.isFree ? 'Yes' : 'No'}</div>
+              <div key={ad._id + 5}>Condition: {ad.condition}</div>
+              <div key={ad._id + 6}>Location: {ad.location}</div>
+              <div key={ad._id + 7}>Description: {ad.description}</div>
+              <div key={ad._id + 8}>Advertiser: {ad.advertiser_info}</div>
+              <div key={ad._id + 9}>Contact: {ad.contact_info}</div>
             </div>
           </Card>
         );
