@@ -79,6 +79,13 @@ router.get("/ads", async (req, res) => {
   const allAds = await Ads.find()
   res.json(allAds)
 })
+
+router.put("/ad/edit", async (req, res) => {
+  const { id, name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body
+  const updateAd = await Ads.findByIdAndUpdate(id, { name, category, price, isFree, condition, location, description, advertiser_info, contact_info })
+  res.json(updateAd)
+
+})
 // router.get("/ads", adController.getAds)
 
 // router.post("/ad", upload.single('adImage'), async(req, res) => {

@@ -5,25 +5,40 @@ import style from './Ads.module.scss'
 import Card from '../../components/card/Card'
 import axios from 'axios';
 import { Buffer } from 'buffer';
+import EditModal from './EditModal';
 
 
 const Ads = () => {
 
   const [ads, setAds] = useState([]);
+  // const [showModal, setShowModal] = useState(false);        // we've to conditioanlly show the Modal, hence this useState won't be used
+  const [selectedAd, setSelectedAd] = useState(null);
 
 
-  // Retrieving Ad post data from Atlas
+    // Retrieving Ad post data from Atlas
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/ads')
-      .then((ress) => {
-        // console.log(ress.data)                  // this is giving continuous ARRAY data of the documents from Atlas
-        setAds(ress.data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  })
+    useEffect(() => {
+      axios.get('http://localhost:5000/ads')
+        .then((ress) => {
+          // console.log(ress.data)                  // this is giving continuous ARRAY data of the documents from Atlas
+          setAds(ress.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }, [])
+
+  const handleCloseModal = () => {
+    setSelectedAd(null)
+  }
+
+  const handleEditClick = (adID) => {
+    setSelectedAd(adID)
+  }
+
+  
+
+  
 
   // NOTE: You can't use the below code because here we again doing "res.json()" to get the data in correct format which we ALREADY have done in "ads.js" router.get("/ads") portion!
   // useEffect(() => {
@@ -40,48 +55,33 @@ const Ads = () => {
   //   fetchData();
   // }, []);
 
+  const Modal = (AD) => {
 
+    // const [showModal, setShowModal] = useState(false);           // Don't define this here, will give error
 
-//   return (
-//     <div className={style.section}>
-//       <div className={style.item}>
+    useEffect(() => {
+      document.body.style.overflowY = 'hidden';
     
-//       {ads.map((ad, i) => {
-//         // const base64String = Buffer.from(ad.image).toString('base64');    will also try this later
-//         // const base64String = Buffer.from(ad.image).toString('base64');
-//         // const base64String = btoa(String.fromCharCode(...new Uint8Array((ad.image.data.data))));
-//         // const base64String = btoa(String.fromCharCode(...new Uint8Array(ad.image.data)));
-//         const base64String = Buffer.from(ad.image.data.data).toString('base64');
-//         // return <img src={`data:image/jpeg;base64,${base64String}`} alt="adImg" width="300"/>;
-//         return (
-
-//           <Card key={i}>
-//           <div className={style.adContent}>
-//             {/* <img src={`data:image/jpeg;base64,${base64String}`}  /> */}
-//             {/* Here we've to convert the buffer data into base 64 string so that IMG tag can display it */}
-//             <img src={`data:image/jpeg;base64,${base64String} alt="adImg" width="300"/>
-//             <div key={ad._id + 1}> {ad.name} </div>
-//             <div key={ad._id + 2}>{ad.category}</div>
-            // <div key={ad._id + 3}>{ad.price}</div>
-            // <div key={ad._id + 4}>{ad.condition}</div>
-            // <div key={ad._id + 5}>{ad.location}</div>
-            // <div key={ad._id + 6}>{ad.description}</div>
-            // <div key={ad._id + 7}>{ad.advertiser_info}</div>
-            // <div key={ad._id + 8}>{ad.contact_info}</div>
-//              {/* {console.log(ad._id)} */}
-             
-
-//           </div>
-//         </Card>
-//         )
+      return () => {
+        document.body.style.overflowY = 'scroll';
+      }
+    }, [])
+  
+    return (
+      <>
+        <div className={style.modal_wrapper} onClick={handleCloseModal}></div>
+          <div className={style.modal_container}>
+            <p>Here user can edit the Ad</p>
+            <EditModal ad={AD}/>
+            {/* {console.log(AD.AD._id)} */}
+            <button onClick={handleCloseModal} className={style.modal_btn}>Save</button>
+          </div>
         
-        
-//       })}
-      
-//       </div>
-//     </div>
-//   )
-// }
+      </>
+    )
+  }
+
+
 
 return (
   <div className={style.section}>
@@ -101,6 +101,10 @@ return (
               <div key={ad._id + 7}>Description: {ad.description}</div>
               <div key={ad._id + 8}>Advertiser: {ad.advertiser_info}</div>
               <div key={ad._id + 9}>Contact: {ad.contact_info}</div>
+              <br />
+              <button onClick={() => handleEditClick(ad._id)} >Edit Ad</button>
+              { selectedAd === ad._id && < Modal AD={ad}/>}
+              {/* {console.log(ad)} */}
             </div>
           </Card>
         );
