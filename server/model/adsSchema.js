@@ -4,23 +4,23 @@ const mongoose = require('mongoose')
 const adsSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, "Please enter product name"]
     },
     category: {
         type: String,
-        required: true
+        required: [true, "Please enter product category"]
     },
     price: {
         type: Number,
-        required: true
+        required: [true, "Please enter product price"]
     },
     isFree: {
         type: Boolean,
-        required: true
+        required: [true, "Are you sharing this product?"]
     },
     condition: {
         type: String,
-        required: true
+        required: [true, "Please enter product condition"]
     },
     image: {
         data: Buffer,
@@ -29,19 +29,19 @@ const adsSchema = new mongoose.Schema({
     },
     location: {
         type: String,
-        required: true
+        required: [true, "Please enter product location"]
     },
     description: {
         type: String,
-        required: true
+        required: [true, "Please enter product description"]
     },
     advertiser_info: {
         type: String,
-        required: true
+        required: [true, "Please enter product advertiser_info"]
     },
     contact_info: {
         type: String,
-        required: true
+        required: [true, "Please enter product contact_info"]
     }
 }, {timestamps: true} )
 

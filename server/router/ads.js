@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs')
+// const bodyParser = require('body-parser');
 // const path = require('path')
 // const adController = require('../controllers/adController')
+// const app = express()
+// app.use(bodyParser.json());
 
 // multer requirements
 const multer = require("multer");
@@ -50,6 +53,8 @@ router.post("/ad", upload.single("adPic"), (req, res) => {
       contact_info
     });
 
+    // console.log(name, category, price, isFree, condition, location, description, advertiser_info, contact_info)
+
     newAd
       .save()
       .then((result) => {
@@ -80,9 +85,13 @@ router.get("/ads", async (req, res) => {
   res.json(allAds)
 })
 
-router.put("/ad/edit", async (req, res) => {
-  const { id, name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body
-  const updateAd = await Ads.findByIdAndUpdate(id, { name, category, price, isFree, condition, location, description, advertiser_info, contact_info })
+router.put("/ad/edit/:id", async (req, res) => {
+  const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body
+  const { id } = req.params
+  
+  const updateAd = await Ads.updateMany({ _id: id }, { $set: { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } })
+  console.log(id, name, category, price, isFree, condition, location, description, advertiser_info, contact_info)
+  // console.log(req.body.name)
   res.json(updateAd)
 
 })

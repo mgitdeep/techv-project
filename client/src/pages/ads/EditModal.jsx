@@ -58,9 +58,11 @@ function EditModal(props) {
       formData.append('advertiser_info', advertiser_info);
       formData.append('contact_info', contact_info);
 
-      await fetch(`http://localhost:5000/ad/edit`, {
-        method: "PUT",
-        body: formData
+      await fetch(`http://localhost:5000/ad/edit/${props.ad.AD._id}`, {
+        method: 'PUT',
+        // body: formData
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, category, price, isFree, condition, location, description, advertiser_info, contact_info })
       });
   };
 //   console.log(AD.AD._id)
@@ -68,7 +70,7 @@ function EditModal(props) {
 
   return (
     <div className={style.form}>
-      <form >
+      <form action={`http://localhost:5000/ad/edit/${props.ad.AD._id}`} method="POST" encType="multipart/form-data">
         <label>
           Name:
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
