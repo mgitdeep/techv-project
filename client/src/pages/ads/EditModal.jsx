@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './EditModal.module.scss'
-// import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function EditModal(props) {
     const [name, setName] = useState(props.ad?.name || '');
@@ -15,17 +15,8 @@ function EditModal(props) {
     const [contact_info, setContactInfo] = useState(props.ad?.contact_info || '');
     const isFreeValue = Boolean(isFree);
 
-    // const [name, setName] = useState(AD?.name || '');
-    // const [category, setCategory] = useState(AD?.category || '');
-    // const [price, setPrice] = useState(AD?.price || '');
-    // const [isFree, setIsFree] = useState(AD?.isFree || false);
-    // const [condition, setCondition] = useState(AD?.condition || '');
-    // const [adImage, setAdImage] = useState('');
-    // const [location, setLocation] = useState(AD?.location || '');
-    // const [description, setDescription] = useState(AD?.description || '');
-    // const [advertiser_info, setAdvertiserInfo] = useState(AD?.advertiser_info || '');
-    // const [contact_info, setContactInfo] = useState(AD?.contact_info || '');
-    // const isFreeValue = Boolean(isFree);
+    const navigateToAds = useNavigate()
+
     
     useEffect(() => {
         setName(props.ad?.name || '');
@@ -42,9 +33,10 @@ function EditModal(props) {
   const handleSubmit = async(event) => {
     event.preventDefault();
     
-    // if (!name || !category || !price || !condition || !adImage || !location || !description || !advertiser_info || !contact_info) {
-    //     toast.error("Please enter all details!")
-    // }
+    if (!name || !category || !price || !condition || !location || !description || !advertiser_info || !contact_info) {
+      alert("Please enter all details!")
+      return
+    }
 
     const formData = new FormData();
       formData.append('name', name);
@@ -62,8 +54,13 @@ function EditModal(props) {
         method: 'PUT',
         // body: formData
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, category, price, isFree, condition, location, description, advertiser_info, contact_info })
+        body: JSON.stringify({ name, category, price, isFree, condition, adImage, location, description, advertiser_info, contact_info }),
+
+        
       });
+
+      navigateToAds('/ads')
+      window.location.reload()
   };
 //   console.log(AD.AD._id)
   console.log(props.ad.AD._id)
@@ -117,10 +114,10 @@ function EditModal(props) {
           Contact Info:
           <input type="text" value={contact_info} onChange={(e) => setContactInfo(e.target.value)} />
         </label>
-        <button type="submit" onClick={handleSubmit}>Save</button>
-        <button type="button" >
+        <button type="submit" onClick={handleSubmit} className={style.modal_btn}>Save</button>
+        {/* <button type="button" >
           Cancel
-        </button>
+        </button> */}
       </form>
     </div>
   );

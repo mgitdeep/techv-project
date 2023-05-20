@@ -86,15 +86,22 @@ router.get("/ads", async (req, res) => {
 })
 
 router.put("/ad/edit/:id", async (req, res) => {
-  const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body
+  const { name, category, price, isFree, condition, adImage, location, description, advertiser_info, contact_info } = req.body
   const { id } = req.params
   
   const updateAd = await Ads.updateMany({ _id: id }, { $set: { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } })
-  console.log(id, name, category, price, isFree, condition, location, description, advertiser_info, contact_info)
+  console.log(id, name, category, price, isFree, condition, adImage, location, description, advertiser_info, contact_info)
   // console.log(req.body.name)
   res.json(updateAd)
 
 })
+
+router.delete("/ad/delete/:id", async (req, res) => {
+  const { id } = req.params
+  const deleteAd = await Ads.deleteOne({ _id: id })
+  res.json(deleteAd)
+})
+
 // router.get("/ads", adController.getAds)
 
 // router.post("/ad", upload.single('adImage'), async(req, res) => {

@@ -13,3 +13,14 @@ form {
       outline: none;
     }
 }
+
+.modal_btn {
+  padding: 0.6rem 1.4rem;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 0.3rem;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transform: scale(0.9);
+}

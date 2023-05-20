@@ -6,6 +6,7 @@ import Card from '../../components/card/Card'
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import EditModal from './EditModal';
+// import { useNavigate } from 'react-router-dom';
 
 
 const Ads = () => {
@@ -14,6 +15,7 @@ const Ads = () => {
   // const [showModal, setShowModal] = useState(false);        // we've to conditioanlly show the Modal, hence this useState won't be used
   const [selectedAd, setSelectedAd] = useState(null);
 
+  // const navigateToAds = useNavigate()
 
     // Retrieving Ad post data from Atlas
 
@@ -36,6 +38,18 @@ const Ads = () => {
     setSelectedAd(adID)
   }
 
+  const handleDeleteClick = async (adID) => {
+    await axios.delete(`http://localhost:5000/ad/delete/${adID}`)
+      .then((res) => {
+        console.log(res)
+        alert('Ad Deleted Successfully!')
+        // navigateToAds('/ads')
+        window.location.reload()
+      }).catch((err) => {
+        console.log(err)
+      
+      })
+    }
   
 
   
@@ -74,7 +88,7 @@ const Ads = () => {
             <p>Here user can edit the Ad</p>
             <EditModal ad={AD}/>
             {/* {console.log(AD.AD._id)} */}
-            <button onClick={handleCloseModal} className={style.modal_btn}>Save</button>
+            <button onClick={handleCloseModal} className={style.modal_btn}>Cancel</button>
           </div>
         
       </>
@@ -103,6 +117,7 @@ return (
               <div key={ad._id + 9}>Contact: {ad.contact_info}</div>
               <br />
               <button onClick={() => handleEditClick(ad._id)} >Edit Ad</button>
+              <button onClick={() => handleDeleteClick(ad._id)} >Delete Ad</button>
               { selectedAd === ad._id && < Modal AD={ad}/>}
               {/* {console.log(ad)} */}
             </div>
