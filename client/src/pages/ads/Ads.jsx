@@ -1,11 +1,12 @@
 // Child component 
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './Ads.module.scss'
 import Card from '../../components/card/Card'
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import EditModal from './EditModal';
+import { userContext } from '../../App'
 // import { useNavigate } from 'react-router-dom';
 
 
@@ -15,6 +16,8 @@ const Ads = () => {
   // const [showModal, setShowModal] = useState(false);        // we've to conditioanlly show the Modal, hence this useState won't be used
   const [selectedAd, setSelectedAd] = useState(null);
 
+  const {state, dispatch} = useContext(userContext)
+
   // const navigateToAds = useNavigate()
 
     // Retrieving Ad post data from Atlas
@@ -23,6 +26,7 @@ const Ads = () => {
       axios.get('/ads')
         .then((ress) => {
           // console.log(ress.data)                  // this is giving continuous ARRAY data of the documents from Atlas
+          dispatch({type: "USER", payload: true})
           setAds(ress.data)
         })
         .catch((err) => {

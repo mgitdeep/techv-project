@@ -16,7 +16,6 @@ require("../db/conn");
 
 const Ads = require('../model/adsSchema');
 const authenticate = require("../middleware/authenticate");
-// const { appendFile } = require('fs')
 
 // setting up the multer middleware
 const storage = multer.diskStorage({
@@ -33,11 +32,8 @@ const upload = multer({ storage: storage });
 
 // Posting a product ad
 router.post("/ad", upload.single("adPic"), authenticate, (req, res) => {
-  // const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body;
   const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body;
-  // const { filename } = req.file;
 
-  // try {
   if (name && category) {
     const newAd = new Ads({
       userId: req.userID,         // Assign the ID of the authenticated user
@@ -56,7 +52,6 @@ router.post("/ad", upload.single("adPic"), authenticate, (req, res) => {
       contact_info
     });
 
-    // console.log(name, category, price, isFree, condition, location, description, advertiser_info, contact_info)
 
     newAd
       .save()
@@ -69,13 +64,6 @@ router.post("/ad", upload.single("adPic"), authenticate, (req, res) => {
         return res.status(201).json({ message: "Error has occured" });
       });
 
-    // if (saveAd) {
-    //   console.log('Ad image is saved')
-    //   return res.status(201).json({ message: 'Ad created successfully!' });
-    // } else {
-    //   console.log('Something wrong!')
-    //   return res.status(400).json({ message: 'Something wrong!' });
-    // }
   } else {
     return res.status(400).json({ message: "All fields are required!" });
   }
@@ -90,6 +78,22 @@ router.get("/ads", authenticate, async (req, res) => {
     // Retrieve ads where the user ID matches the authenticated user's ID
     const ads = await Ads.find({ userId: req.userID });
     // const ads = await Ads.find()
+
+    res.json(ads);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+})
+
+// Getting ALL the Ads for Home page
+router.get("/allAds", authenticate, async (req, res) => {
+  // const allAds = await Ads.find()
+  // res.json(allAds) - Previous code
+  try {
+    // Retrieve ads where the user ID matches the authenticated user's ID
+    // const ads = await Ads.find({ userId: req.userID });
+    const ads = await Ads.find()
 
     res.json(ads);
   } catch (err) {

@@ -5,8 +5,9 @@ import loginImg from "../../assets/login.png"
 import { Link, useNavigate } from 'react-router-dom'
 import { BsGoogle } from 'react-icons/bs'
 import Card from '../../components/card/Card'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 // import Loader from '../../components/loader/Loader'
+import { userContext } from '../../App'
 
 // Toastify imports
 import { ToastContainer, toast } from 'react-toastify';
@@ -20,6 +21,8 @@ const Login = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const {state, dispatch} = useContext(userContext)
 
   const navigateTo = useNavigate()
 
@@ -51,6 +54,7 @@ const Login = () => {
     if(resPonse.status === 422 || !data) {
       window.alert("Invalid Credentials!")
     } else {
+      dispatch({type: "USER", payload: true})
       window.alert("Login Successful!")
 
       navigateTo('/')

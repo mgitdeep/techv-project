@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
 import style from './MyProfile.module.scss'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { userContext } from '../../App'
 // import axios from 'axios';
 
 const MyProfile = () => {
+
+  const {state, dispatch} = useContext(userContext)
 
   const navigateToLogin = useNavigate()
 
@@ -25,6 +28,8 @@ const MyProfile = () => {
   
         const data = await resPonse.json()
         console.log(data)
+
+        dispatch({type: "USER", payload: true})
   
         if(!resPonse.status === 200) {
           const erroR = new Error(resPonse.error)
@@ -40,7 +45,7 @@ const MyProfile = () => {
 
     callMyProfilePage()
 
-  }, [navigateToLogin])
+  })
 
 
   return (

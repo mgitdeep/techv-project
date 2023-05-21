@@ -148,4 +148,15 @@ router.get("/myprofile", authenticate, (req, res, next) => {
 //     next()
 // })
 
+
+// Logout page
+
+router.get("/logout", authenticate, (req, res) => {
+    console.log('Logout successful')                 
+    // next() - you're using this NEXT() function in a wrong way - we've to use this function while defining the MIDDLEWARE, not while using the MIDDLEWARE!!
+    // res.send("Hello.. I'm a bot from About server");
+    res.clearCookie("jwtoken", {path: "/"})
+    res.status(200).send("Logout successful");
+});
+
 module.exports = router

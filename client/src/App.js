@@ -6,26 +6,60 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {Header, Footer, Error} from './components'
 
 // Pages
-import {Home, Contact, Login, Register, MyProfile, Reset, Ad, Ads} from './pages'
+import {Home, Contact, Login, Logout, Register, MyProfile, Reset, Ad, Ads} from './pages'
+import { createContext, useReducer } from 'react';
+import { reducer, initialState } from './reducer/UseReducer';
+
+// Context API
+export const userContext = createContext() 
+
+// const Routing = () => {
+//   <BrowserRouter>
+//       <Header/>
+//         <Routes>
+//           <Route path='/' element={<Home />}/>
+//           <Route path='/contact' element={<Contact />}/>
+//           <Route path='/login' element={<Login />}/>
+//           <Route path='/logout' element={<Logout />}/>
+//           <Route path='/register' element={<Register />}/>
+//           <Route path='/reset' element={<Reset />}/>
+//           <Route path='/myprofile' element={<MyProfile />}/>
+//           <Route path='/ad' element={<Ad />}/>
+//           <Route path='/ads' element={<Ads />}/>
+//           <Route path='/er' element={<Error />}/>
+//         </Routes>
+//         <Footer />
+//       </BrowserRouter>
+// }
 
 function App() {
+
+  const [state, dispatch] = useReducer(reducer, initialState)
+
   return (
     <>
-    <BrowserRouter>
-      <Header/>
-        <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/contact' element={<Contact />}/>
-          <Route path='/login' element={<Login />}/>
-          <Route path='/register' element={<Register />}/>
-          <Route path='/reset' element={<Reset />}/>
-          <Route path='/myprofile' element={<MyProfile />}/>
-          <Route path='/ad' element={<Ad />}/>
-          <Route path='/ads' element={<Ads />}/>
-          <Route path='/er' element={<Error />}/>
-        </Routes>
-        <Footer />
+      <userContext.Provider value={{state, dispatch}}>
+    
+          {/* <Routing /> */}
+
+       <BrowserRouter>
+        <Header/>
+          <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='/contact' element={<Contact />}/>
+            <Route path='/login' element={<Login />}/>
+            <Route path='/logout' element={<Logout />}/>
+            <Route path='/register' element={<Register />}/>
+            <Route path='/reset' element={<Reset />}/>
+            <Route path='/myprofile' element={<MyProfile />}/>
+            <Route path='/ad' element={<Ad />}/>
+            <Route path='/ads' element={<Ads />}/>
+            <Route path='/er' element={<Error />}/>
+          </Routes>
+          <Footer />
       </BrowserRouter>
+
+      </userContext.Provider>
     </>
   );
 }

@@ -7,8 +7,9 @@ import Card from '../../components/card/Card'
 // Toastify imports
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { userContext } from '../../App'
 
 
 const Ad = () => {
@@ -26,12 +27,22 @@ const Ad = () => {
     contact_info: ""
   })
 
+  const {state, dispatch} = useContext(userContext)
+
+  // dispatch({type: "USER", payload: true})            - will throw this warning: Cannot update a component (`App`) while rendering a different component (`Ad`).
+  // So by using an useEffect we can avoid this
+
   const [isFree, setIsFree] = useState(false)
   const [adImage, setAdImage] = useState(null)
   const isFreeValue = Boolean(isFree); // convert to boolean
   
 
   const navigateToMyProfile = useNavigate()
+
+  useEffect(() => {
+    dispatch({type: "USER", payload: true})
+  })
+  
 
   let name, value
   const handleInputs = (e) => {
@@ -52,6 +63,7 @@ const Ad = () => {
       toast.error("Please enter all details!")
     } else {
 
+      dispatch({type: "USER", payload: true})
       // const resPonse = await fetch("http://localhost:5000/ad", {
       //   method: "POST",
       //   headers: {
@@ -85,6 +97,7 @@ const Ad = () => {
         window.alert("Ad not posted!")
         console.log("Ad not posted!")
       } else {
+        dispatch({type: "USER", payload: true})
         window.alert("Ad posted successfully!")
         console.log("Ad posted successfully!")
 
@@ -100,6 +113,7 @@ const Ad = () => {
   return (
     <div className={styles.mainAuth}>
     <ToastContainer />
+    {/* {dispatch({type: "USER", payload: true})} */}
       {/* { loader && <Loader />} */}
       <section className={` ${styles.auth}`}>
         
