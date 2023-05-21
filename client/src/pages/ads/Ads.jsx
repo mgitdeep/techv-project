@@ -20,7 +20,7 @@ const Ads = () => {
     // Retrieving Ad post data from Atlas
 
     useEffect(() => {
-      axios.get('http://localhost:5000/ads')
+      axios.get('/ads')
         .then((ress) => {
           // console.log(ress.data)                  // this is giving continuous ARRAY data of the documents from Atlas
           setAds(ress.data)
@@ -39,19 +39,18 @@ const Ads = () => {
   }
 
   const handleDeleteClick = async (adID) => {
-    await axios.delete(`http://localhost:5000/ad/delete/${adID}`)
-      .then((res) => {
-        console.log(res)
-        alert('Ad Deleted Successfully!')
+
+    try {
+      await axios.delete(`http://localhost:5000/ad/delete/${adID}`)
+      alert('Ad Deleted Successfully!')
         // navigateToAds('/ads')
-        window.location.reload()
-      }).catch((err) => {
-        console.log(err)
-      
-      })
+      window.location.reload()
+    }
+    catch (err) {
+      console.log(err)
     }
   
-
+  }
   
 
   // NOTE: You can't use the below code because here we again doing "res.json()" to get the data in correct format which we ALREADY have done in "ads.js" router.get("/ads") portion!

@@ -28,6 +28,7 @@ const Login = () => {
 
     if ( !email || !password ) {
       toast.error("Please enter details")
+      return
     }
     // else {
 
@@ -59,29 +60,6 @@ const Login = () => {
   
 
   // const [loader, setLoader] = useState(false)
-
-  
-
-  // // Login with Google
-  // const provider = new GoogleAuthProvider();
-  
-  // const loginWithGoogle = () => {
-
-  //   signInWithPopup(auth, provider)
-  //   .then((result) => {
-
-  //     // The signed-in user info.
-  //     const user = result.user;
-  //     console.log(user)
-  //     toast.success("Login Successful!")
-
-  //     navigateTo("/admin")
-
-  //   }).catch((error) => {
-      
-  //     toast.error(error.message.slice(10))
-  //   });
-  // }
 
   return (
     <div className={styles.mainAuth}>

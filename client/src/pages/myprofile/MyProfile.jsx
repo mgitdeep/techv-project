@@ -13,15 +13,15 @@ const MyProfile = () => {
     // callMyProfilePage()
     const callMyProfilePage = async () => {
       try {
-        const resPonse = await fetch('http://localhost:5000/myprofile') 
-        // {
-        //   method: 'GET',
-        //   headers: {
-        //     Accept: "application/json",
-        //     "Content-Type": "application/json"
-        //   },
-        //   credentials: "include"
-        // })
+        const resPonse = await fetch('/myprofile',
+        {
+          method: 'GET',
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          credentials: "include"
+        })
   
         const data = await resPonse.json()
         console.log(data)
@@ -34,7 +34,7 @@ const MyProfile = () => {
       } catch (err) {
         console.log(err)
   
-        // navigateToLogin('/login')
+        navigateToLogin('/login')
       }
     }
 

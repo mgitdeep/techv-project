@@ -73,7 +73,7 @@ const Ad = () => {
       formData.append('advertiser_info', advertiser_info);
       formData.append('contact_info', contact_info);
 
-      const resPonse = await fetch("http://localhost:5000/ad", {
+      const resPonse = await fetch("/ad", {
         method: "POST",
         body: formData
       });

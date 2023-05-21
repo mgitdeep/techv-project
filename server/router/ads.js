@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs')
+
 // const bodyParser = require('body-parser');
 // const path = require('path')
 // const adController = require('../controllers/adController')
@@ -13,7 +14,8 @@ const multer = require("multer");
 
 require("../db/conn");
 
-const Ads = require('../model/adsSchema')
+const Ads = require('../model/adsSchema');
+const authenticate = require("../middleware/authenticate");
 // const { appendFile } = require('fs')
 
 // setting up the multer middleware
@@ -30,7 +32,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Posting a product ad
-router.post("/ad", upload.single("adPic"), (req, res) => {
+router.post("/ad", upload.single("adPic"), authenticate, (req, res) => {
   // const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body;
   const { name, category, price, isFree, condition, location, description, advertiser_info, contact_info } = req.body;
   // const { filename } = req.file;
@@ -38,6 +40,7 @@ router.post("/ad", upload.single("adPic"), (req, res) => {
   // try {
   if (name && category) {
     const newAd = new Ads({
+      userId: req.userID,         // Assign the ID of the authenticated user
       name,
       category,
       price,
@@ -80,9 +83,19 @@ router.post("/ad", upload.single("adPic"), (req, res) => {
   //   return res.status(400).json(err);
 });
 
-router.get("/ads", async (req, res) => {
-  const allAds = await Ads.find()
-  res.json(allAds)
+router.get("/ads", authenticate, async (req, res) => {
+  // const allAds = await Ads.find()
+  // res.json(allAds) - Previous code
+  try {
+    // Retrieve ads where the user ID matches the authenticated user's ID
+    const ads = await Ads.find({ userId: req.userID });
+    // const ads = await Ads.find()
+
+    res.json(ads);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
 })
 
 router.put("/ad/edit/:id", async (req, res) => {

@@ -2,8 +2,8 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
-// const jwt = require('jsonwebtoken')
-// const authenticate = require('../middleware/authenticate')
+const jwt = require('jsonwebtoken')
+const authenticate = require('../middleware/authenticate')
 
 // // multer requirements
 // const multer = require('multer')
@@ -96,10 +96,10 @@ router.post('/signin', async(req, res) => {
 
         const userLogin = await Users.findOne({ email: email})
 
-        const token = await userLogin.generateAuthToken()
-        console.log(token)
+        const tokenIs = await userLogin.generateAuthToken()
+        console.log(tokenIs) 
 
-        res.cookie("jwtoken", token, {
+        res.cookie("jwtoken", tokenIs, {
             expires: new Date(Date.now() + 2592000000),
             httpOnly: true
         })
@@ -115,17 +115,6 @@ router.post('/signin', async(req, res) => {
             res.status(422).json({message: "Invalid credentials!"})
         }
 
-        // const userLogin1 = await Users.findOne({ email: email})
-        // // const userLogin2 = await Users.findOne({password: password})
-        // const userLogin2 = await bcrypt.compare(password, userLogin1.password)
-
-        // if ( userLogin1 && userLogin2) {
-        //     res.status(201).json({message: "User logged in successfully!"})
-        //     console.log(userLogin1)
-            
-        // } else {
-        //     res.status(422).json({message: "Invalid credentials!"})
-        // }
         
 
     } catch(err) {
@@ -138,18 +127,19 @@ router.post('/signin', async(req, res) => {
 
 // My Profile page:
 // Here we're using the Middleware concept
-// router.get("/myprofile", authenticate, (req, res, next) => {
-//     console.log('Inside the About section')                 
-//     // next() - you're using this NEXT() function in a wrong way - we've to use this function while defining the MIDDLEWARE, not while using the MIDDLEWARE!!
-//     // res.send("Hello.. I'm a bot from About server");
-//     res.send(req.rootUser);
-// });
-
-router.get("/myprofile", (req, res) => {
+router.get("/myprofile", authenticate, (req, res, next) => {
     console.log('Inside the About section')                 
+    // next() - you're using this NEXT() function in a wrong way - we've to use this function while defining the MIDDLEWARE, not while using the MIDDLEWARE!!
     // res.send("Hello.. I'm a bot from About server");
-    // res.send(req.rootUser);
+    res.send(req.rootUser);
 });
+
+// Temporary myprofile without authentication to implement the Edit & Delete Ad functionality
+// router.get("/myprofile", (req, res) => {
+//     console.log('Inside the About section')                 
+//     // res.send("Hello.. I'm a bot from About server");
+//     // res.send(req.rootUser);
+// });
 
 
 // router.post("/ad", upload.single('adImage'), (req, res, next) => {
